@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import SearchBar from './SearchBar';
 import Button from './Button';
 
-const TableHeader = () => {
+const TableHeader = (props) => {
     return (
         <TableHeaderWrapper>
             <div className='header-left-title'>
@@ -19,7 +19,7 @@ const TableHeader = () => {
                     </select>
                 </div>
                 <div className='search-container'>
-                    { <SearchBar /> }
+                    { <SearchBar onChangeHandler={props.onChangeHandler} /> }
                 </div>
                 <div className='btn-container'>
                     <Button text='Add FPO' />

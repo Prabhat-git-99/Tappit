@@ -4,30 +4,53 @@ import styled from 'styled-components';
 import { AiOutlineEdit } from "react-icons/ai";
 import { AiOutlineEye } from "react-icons/ai";
 
-
 import TableHeader from './TableHeader';
 import TableRow from './TableRow';
 
 import Data from '../Data/data';
 
-
 const TableContainer = () => {
 
-    const newData = Data;
-    // const [newData, setNewData] = useState(Data);
-    // const [currValue, setCurrValue] = useState('');
+    // const newData = Data;
+    const [newData, setNewData] = useState(Data);
+    const [currValue, setCurrValue] = useState('');
 
-    // const onChangeHandler = e => {
-    //     let currentV = e.target.value;
+    const onChangeHandler = e => {
+        console.log(e.target.value);
+        setCurrValue(e.target.value);
+    }
 
-    // useEffect({
+    useEffect(() => {
+        let check = [];
+        if (currValue === '') {
+            // newData = Data;
+            setNewData(Data);
+        }
+        else {
+            var name = '';
+            
+            setNewData([]);
+            Data.map(item => {
+                name = item.location.toLowerCase();
+                // if (name.search(currValue) > 0) 
+                if (name.includes(currValue.toLowerCase()))
+                {
+                    // console.log('SEE SEARCH: ', name.search(currValue));
+                    setNewData(item);
+                    check.push(item);
+                }
+            })
+            console.log('CHECK : ', check);
+            console.log(newData);
+            setNewData(check);
         
-    // })
-
+        }
+    }, [currValue])
+ 
     console.log(Data);
     return (
         <TableContainerWrapper>
-            <TableHeader />
+            <TableHeader onChangeHandler={onChangeHandler} />
             <table cellSpacing='0'>
                
                 <thead>
@@ -43,7 +66,7 @@ const TableContainer = () => {
                 </thead>
                 <tbody>
                 {
-                    newData.map(item => {
+                    newData.length > 0 ? newData.map(item => {
                         return (
                         <tr>
                             <td>{item.fpo}</td>
@@ -58,7 +81,10 @@ const TableContainer = () => {
                             </td>
                         </tr>
                         );
-                    })
+                    }) : 
+                    
+                    ''
+
                 }
                 </tbody>
             </table>
@@ -132,4 +158,4 @@ const TableContainerWrapper = styled.div`
 `;
 
 
-export default TableContainer
+export default TableContainer;

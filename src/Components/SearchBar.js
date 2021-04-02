@@ -5,11 +5,16 @@ import styled from 'styled-components';
 import { BiSearch } from "react-icons/bi";
 
 
-const SearchBar = () => {
+const SearchBar = (props) => {
+
+    const onChangeSearch = e => {
+        props.onChangeHandler(e);
+    }
+
     return (
         <SearchBarWrapper>
             <div className="searchContainer">
-                <input className="searchBox" type="search" name="search" placeholder="Search" onChange={(e) => {console.log(e.target.value)}} />
+                <input className="searchBox" type="search" name="search" placeholder="Search" onChange={onChangeSearch} />
                 {/* <input type="submit" value="Search" class="searchButton" /> */}
                 <span className='searchIcon'><BiSearch /></span>
             </div>        
